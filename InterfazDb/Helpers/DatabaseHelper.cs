@@ -1,6 +1,7 @@
 using System;
 using MySql.Data.MySqlClient;
 
+// TASK-wip-db helper to insert data , execute sqls 
 namespace InterfazDb.Helpers
 {
     public static class DatabaseModify
