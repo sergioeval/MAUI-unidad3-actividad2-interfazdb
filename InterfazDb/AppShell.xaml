@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="InterfazDb.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:InterfazDb"
-    Shell.FlyoutBehavior="Flyout"
-    Title="InterfazDb">
+    xmlns:pages="clr-namespace:InterfazDb.Pages"
+    x:Class="InterfazDb.AppShell"
+    Title="InterfazDb"
+    FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="LightGray" HeightRequest="100">
+            <Label Text="InterfazDb"
+                   FontSize="24"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Home" Icon="dotnet_bot.png">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate pages:HomePage}" />
+    </FlyoutItem>
+            
+    <FlyoutItem Title="Insert Person" Icon="dotnet_bot.png">
+        <ShellContent
+            Title="Insert Person"
+            ContentTemplate="{DataTemplate pages:InsertPersonPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Insert Product" Icon="dotnet_bot.png">
+        <ShellContent
+            Title="Insert Product"
+            ContentTemplate="{DataTemplate pages:InsertProductPage}" />
+    </FlyoutItem>
 
 </Shell>
