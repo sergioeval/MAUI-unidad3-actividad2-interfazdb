@@ -34,4 +34,10 @@
             ContentTemplate="{DataTemplate pages:InsertProductPage}" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Insert New Inventory" Icon="dotnet_bot.png">
+        <ShellContent
+            Title="Insert New Inventory"
+            ContentTemplate="{DataTemplate pages:InsertInventoryPage}" />
+    </FlyoutItem>
+
 </Shell>

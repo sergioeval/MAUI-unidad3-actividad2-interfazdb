@@ -6,7 +6,7 @@ namespace InterfazDb.Helpers
 {
     public static class DatabaseModify
     {
-        private static readonly string connectionString = "server=localhost;user=root;password=your_password;database=your_db_name";
+        private static readonly string connectionString = "Server=localhost;Port=3306;Database=mydb;User=myuser;Password=alfabeta;";
 
         public static void ExecuteSql(string sql)
         {

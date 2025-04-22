@@ -1,41 +1,78 @@
 using Microsoft.Maui.Controls;
+using InterfazDb.Helpers;
+using System.Data;
+using System.Diagnostics;
 
 namespace InterfazDb.Pages;
 
 public partial class InsertProductPage : ContentPage
 {
+    private readonly DatabaseGetData _database;
+
     public InsertProductPage()
     {
         InitializeComponent();
+        _database = new DatabaseGetData();
     }
 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(ProductNameEntry.Text))
+        if (string.IsNullOrWhiteSpace(DescripcionEntry.Text))
         {
-            await DisplayAlert("Error", "Please enter a product name", "OK");
+            await DisplayAlert("Error", "Please enter a product description", "OK");
             return;
         }
 
-        if (!decimal.TryParse(PriceEntry.Text, out decimal price))
+        try
         {
-            await DisplayAlert("Error", "Please enter a valid price", "OK");
-            return;
+            string sql = $"INSERT INTO CatProducto (Descripcion) VALUES ('{DescripcionEntry.Text}')";
+            DatabaseModify.ExecuteSql(sql);
+            await DisplayAlert("Success", "Product saved successfully!", "OK");
+            
+            // Clear the entries
+            DescripcionEntry.Text = string.Empty;
         }
-
-        if (!int.TryParse(StockEntry.Text, out int stock))
+        catch (Exception ex)
         {
-            await DisplayAlert("Error", "Please enter a valid stock quantity", "OK");
-            return;
+            await DisplayAlert("Error", $"Failed to save product: {ex.Message}", "OK");
         }
+    }
 
-        // TODO: Add your database insertion logic here
-        await DisplayAlert("Success", "Product saved successfully!", "OK");
-        
-        // Clear the entries
-        ProductNameEntry.Text = string.Empty;
-        DescriptionEntry.Text = string.Empty;
-        PriceEntry.Text = string.Empty;
-        StockEntry.Text = string.Empty;
+    private async void OnShowProductsClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            string query = "SELECT ID, Descripcion FROM CatProducto";
+            DataTable products = await _database.ExecuteSelectQueryAsync(query);
+            
+            // Debug information
+            string debugInfo = $"Rows found: {products.Rows.Count}\n";
+            if (products.Rows.Count > 0)
+            {
+                debugInfo += "First row data:\n";
+                foreach (DataColumn col in products.Columns)
+                {
+                    debugInfo += $"Column: {col.ColumnName}, Value: {products.Rows[0][col.ColumnName]}\n";
+                }
+            }
+            DebugLabel.Text = debugInfo;
+            DebugLabel.IsVisible = true;
+
+            if (products.Rows.Count > 0)
+            {
+                ProductsCollectionView.ItemsSource = products.DefaultView;
+                ProductsCollectionView.IsVisible = true;
+            }
+            else
+            {
+                await DisplayAlert("Info", "No products found in the database", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLabel.Text = $"Error: {ex.Message}";
+            DebugLabel.IsVisible = true;
+            await DisplayAlert("Error", $"Failed to load products: {ex.Message}", "OK");
+        }
     }
 } 

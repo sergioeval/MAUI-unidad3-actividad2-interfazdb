@@ -7,38 +7,60 @@
     <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="20">
             <Label 
-                Text="Insert New Product"
+                Text="Add New Product"
                 FontSize="24"
                 HorizontalOptions="Center"
                 Margin="0,0,0,20"/>
 
-            <Entry 
-                x:Name="ProductNameEntry"
-                Placeholder="Enter product name"
-                Margin="0,0,0,10"/>
+            <Label 
+                Text="Product Description"
+                FontSize="16"/>
 
             <Entry 
-                x:Name="DescriptionEntry"
-                Placeholder="Enter product description"
-                Margin="0,0,0,10"/>
-
-            <Entry 
-                x:Name="PriceEntry"
-                Placeholder="Enter price"
-                Keyboard="Numeric"
-                Margin="0,0,0,10"/>
-
-            <Entry 
-                x:Name="StockEntry"
-                Placeholder="Enter stock quantity"
-                Keyboard="Numeric"
+                x:Name="DescripcionEntry"
+                Placeholder="Enter product description (max 40 characters)"
+                MaxLength="40"
                 Margin="0,0,0,10"/>
 
             <Button 
                 Text="Save Product"
-                SemanticProperties.Hint="Saves the new product"
+                SemanticProperties.Hint="Saves the new product to CatProducto table"
                 Clicked="OnSaveClicked"
                 HorizontalOptions="Center" />
+
+            <Button 
+                Text="Show All Products"
+                SemanticProperties.Hint="Shows all products from CatProducto table"
+                Clicked="OnShowProductsClicked"
+                HorizontalOptions="Center"
+                Margin="0,20,0,0" />
+
+            <CollectionView x:Name="ProductsCollectionView" 
+                          IsVisible="False"
+                          Margin="0,20,0,0"
+                          BackgroundColor="Transparent">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5"
+                               BorderColor="Gray"
+                               BackgroundColor="White"
+                               Padding="10">
+                            <StackLayout Spacing="5">
+                                <Label Text="{Binding Row[ID]}" 
+                                       FontAttributes="Bold"
+                                       TextColor="Black"/>
+                                <Label Text="{Binding Row[Descripcion]}"
+                                       TextColor="Black"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label x:Name="DebugLabel"
+                   IsVisible="False"
+                   TextColor="Red"
+                   Margin="0,10,0,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage> 

@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InterfazDb.Pages.InsertPersonPage"
-             Title="Insert New Person">
+             x:Class="InterfazDb.Pages.InsertInventoryPage"
+             Title="Insert New Inventory">
 
     <ScrollView>
         <VerticalStackLayout Spacing="10" Padding="20">
             <Label 
-                Text="Insert New Person"
+                Text="Insert New Inventory"
                 FontSize="24"
                 HorizontalOptions="Center"
                 Margin="0,0,0,20"/>
 
             <Label 
-                Text="Name (Required)"
+                Text="Select Product"
                 FontAttributes="Bold"/>
 
-            <Entry 
-                x:Name="NombreEntry"
-                Placeholder="Enter name (max 80 characters)"
-                MaxLength="80"
+            <Button 
+                x:Name="SelectProductButton"
+                Text="Select a product"
+                Clicked="OnSelectProductClicked"
                 Margin="0,0,0,10"/>
 
             <Label 
-                Text="Position (Required)"
-                FontAttributes="Bold"/>
+                x:Name="SelectedProductLabel"
+                Text="No product selected"
+                Margin="0,0,0,10"/>
 
             <Entry 
-                x:Name="CargoEntry"
-                Placeholder="Enter position (max 80 characters)"
-                MaxLength="80"
+                x:Name="CantidadEntry"
+                Placeholder="Enter quantity"
+                Keyboard="Numeric"
                 Margin="0,0,0,10"/>
 
             <Button 
-                Text="Save Person"
-                SemanticProperties.Hint="Saves the new person to CatPersonal table"
+                Text="Save Inventory"
+                SemanticProperties.Hint="Saves the new inventory record"
                 Clicked="OnSaveClicked"
                 HorizontalOptions="Center" />
         </VerticalStackLayout>
